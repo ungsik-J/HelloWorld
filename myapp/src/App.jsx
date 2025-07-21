@@ -9,6 +9,13 @@ import {
 
 const { ipcRenderer } = window.require("electron");
 
+const modelPop = (param) => {
+  const data = encodeURIComponent(
+    JSON.stringify({ title: "Hello", pObj: param })
+  );
+  ipcRenderer.send("open-modal", data);
+};
+
 function App() {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
@@ -29,6 +36,7 @@ function App() {
       const updatedTodos = todos.map((todo, index) =>
         index === editIndex ? { ...todo, text: input } : todo
       );
+
       setTodos(updatedTodos);
       setEditIndex(null);
       ipcRenderer.invoke("write-todos", updatedTodos);
@@ -55,6 +63,8 @@ function App() {
   };
 
   const startEditTodo = (index) => {
+    modelPop(todos[index]);
+
     setEditIndex(index);
     setInput(todos[index].text);
   };
