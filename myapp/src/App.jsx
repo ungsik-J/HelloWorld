@@ -6,7 +6,7 @@ import {
   PlusOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
-
+//
 const { ipcRenderer } = window.require("electron");
 
 const modelPop = (param) => {
